@@ -1,5 +1,7 @@
 <?php
 require 'db.php';
+require 'function.php';
+
 $id = $_GET['id'];
  
  
@@ -11,12 +13,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $item = $_POST['item'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
-    $total = $price * $quantity;
+    
+    if (!validateNumber($price) || !validateNumber($quantity)) {
+    die("Invalid input.");
+    }
+
+    $total = computeTotal($price, $quantity);
 
     $sql = "UPDATE transactions 
             SET item=:item, price=:price, quantity=:quantity, total=:total
             WHERE id=:id";
- 
  
     $stmt = $pdo->prepare($sql);
     $stmt->execute([

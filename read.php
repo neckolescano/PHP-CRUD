@@ -3,6 +3,7 @@ require 'db.php';
 $stmt = $pdo->query("SELECT * FROM transactions ORDER BY id DESC");
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

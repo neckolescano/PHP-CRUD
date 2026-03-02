@@ -1,12 +1,18 @@
 <?php
 require 'db.php';
+require 'function.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $item = $_POST['item'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
-    $total = $price * $quantity;
- 
+    
+    if (!validateNumber($price) || !validateNumber($quantity)) {
+        die("Invalid input.");
+    }
+
+    $total = computeTotal($price, $quantity);
+    
  
     $sql = "INSERT INTO transactions (item, price, quantity, total)
             VALUES (:item, :price, :quantity, :total)";
@@ -19,6 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':total' => $total
     ]);
 
-    header("Location: read.php");
+    redirectPage("read.php");
 }
 ?>
