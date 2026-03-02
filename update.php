@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':id' => $id
     ]);
 
-    header("Location: read.php");
+    redirectPage("read.php");
 }
 ?>
 <!DOCTYPE html>
